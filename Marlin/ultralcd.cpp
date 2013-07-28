@@ -367,10 +367,12 @@ static void lcd_move_menu_axis();
 static void lcd_move_x()
 {
 	#ifdef DELTA
-	/*	if (encoderPosition != 0)
+		if (encoderPosition != 0)
 		{
-			destination[X_AXIS] += float((int)encoderPosition) * move_menu_scale;
-			prepare_move();
+			current_position[X_AXIS] += float((int)encoderPosition) * move_menu_scale;
+			
+			//Delta move goes here
+			
 			encoderPosition = 0;
 			lcdDrawUpdate = 1;
 		}
@@ -383,7 +385,7 @@ static void lcd_move_x()
 			lcd_quick_feedback();
 			currentMenu = lcd_move_menu_axis;
 			encoderPosition = 0;
-		}*/
+		}
 	#else
 		if (encoderPosition != 0)
 		{
@@ -411,11 +413,25 @@ static void lcd_move_x()
 static void lcd_move_y()
 {
 	#ifdef DELTA
-	
-	
-	
-	
-	
+		if (encoderPosition != 0)
+		{
+			current_position[Y_AXIS] += float((int)encoderPosition) * move_menu_scale;
+			
+			//Delta move goes here
+			
+			encoderPosition = 0;
+			lcdDrawUpdate = 1;
+		}
+		if (lcdDrawUpdate)
+		{
+			lcd_implementation_drawedit(PSTR("X"), ftostr31(current_position[X_AXIS]));
+		}
+		if (LCD_CLICKED)
+		{
+			lcd_quick_feedback();
+			currentMenu = lcd_move_menu_axis;
+			encoderPosition = 0;
+		}
 	#else
 		if (encoderPosition != 0)
 		{
@@ -443,9 +459,25 @@ static void lcd_move_y()
 static void lcd_move_z()
 {
 	#ifdef DELTA
-	
-	
-	
+		if (encoderPosition != 0)
+		{
+			current_position[Z_AXIS] += float((int)encoderPosition) * move_menu_scale;
+			
+			//Delta move goes here
+			
+			encoderPosition = 0;
+			lcdDrawUpdate = 1;
+		}
+		if (lcdDrawUpdate)
+		{
+			lcd_implementation_drawedit(PSTR("X"), ftostr31(current_position[X_AXIS]));
+		}
+		if (LCD_CLICKED)
+		{
+			lcd_quick_feedback();
+			currentMenu = lcd_move_menu_axis;
+			encoderPosition = 0;
+		}
 	#else
 		if (encoderPosition != 0)
 		{
