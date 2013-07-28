@@ -367,25 +367,7 @@ static void lcd_move_menu_axis();
 static void lcd_move_x()
 {
 	#ifdef DELTA
-		if (encoderPosition != 0)
-		{
-			current_position[X_AXIS] += float((int)encoderPosition) * move_menu_scale;
-			
-			//Delta move goes here
-			
-			encoderPosition = 0;
-			lcdDrawUpdate = 1;
-		}
-		if (lcdDrawUpdate)
-		{
-			lcd_implementation_drawedit(PSTR("X"), ftostr31(current_position[X_AXIS]));
-		}
-		if (LCD_CLICKED)
-		{
-			lcd_quick_feedback();
-			currentMenu = lcd_move_menu_axis;
-			encoderPosition = 0;
-		}
+		
 	#else
 		if (encoderPosition != 0)
 		{
@@ -413,25 +395,7 @@ static void lcd_move_x()
 static void lcd_move_y()
 {
 	#ifdef DELTA
-		if (encoderPosition != 0)
-		{
-			current_position[Y_AXIS] += float((int)encoderPosition) * move_menu_scale;
-			
-			//Delta move goes here
-			
-			encoderPosition = 0;
-			lcdDrawUpdate = 1;
-		}
-		if (lcdDrawUpdate)
-		{
-			lcd_implementation_drawedit(PSTR("X"), ftostr31(current_position[X_AXIS]));
-		}
-		if (LCD_CLICKED)
-		{
-			lcd_quick_feedback();
-			currentMenu = lcd_move_menu_axis;
-			encoderPosition = 0;
-		}
+		
 	#else
 		if (encoderPosition != 0)
 		{
@@ -459,25 +423,7 @@ static void lcd_move_y()
 static void lcd_move_z()
 {
 	#ifdef DELTA
-		if (encoderPosition != 0)
-		{
-			current_position[Z_AXIS] += float((int)encoderPosition) * move_menu_scale;
-			
-			//Delta move goes here
-			
-			encoderPosition = 0;
-			lcdDrawUpdate = 1;
-		}
-		if (lcdDrawUpdate)
-		{
-			lcd_implementation_drawedit(PSTR("X"), ftostr31(current_position[X_AXIS]));
-		}
-		if (LCD_CLICKED)
-		{
-			lcd_quick_feedback();
-			currentMenu = lcd_move_menu_axis;
-			encoderPosition = 0;
-		}
+		
 	#else
 		if (encoderPosition != 0)
 		{
@@ -526,16 +472,19 @@ static void lcd_move_e()
 static void lcd_move_menu_axis()
 {
     START_MENU();
-    MENU_ITEM(back, MSG_MOVE_AXIS, lcd_move_menu);
-    MENU_ITEM(submenu, "Move X", lcd_move_x);
-    MENU_ITEM(submenu, "Move Y", lcd_move_y);
 	#ifdef DELTA
-		MENU_ITEM(submenu, "Move Z", lcd_move_z);
+		MENU_ITEM(back, "XYZ UNSUPPORTED", lcd_move_menu);
+		//MENU_ITEM(submenu, "Move X", lcd_move_x);
+		//MENU_ITEM(submenu, "Move Y", lcd_move_y);
+		//MENU_ITEM(submenu, "Move Z", lcd_move_z);
 		if (move_menu_scale < 10.0)
 		{
 			MENU_ITEM(submenu, "Extruder", lcd_move_e);
 		}
 	#else
+		MENU_ITEM(back, MSG_MOVE_AXIS, lcd_move_menu);
+		MENU_ITEM(submenu, "Move X", lcd_move_x);
+		MENU_ITEM(submenu, "Move Y", lcd_move_y);
 		if (move_menu_scale < 10.0)
 		{
 			MENU_ITEM(submenu, "Move Z", lcd_move_z);
